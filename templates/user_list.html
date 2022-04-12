@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block bodyblock %}
+    <h2>Users List</h2>
+
+    <ul>
+        {% for user in users %}
+            <li>{{ user.username }} - {{ user.email }} - {{ user.date_joined }}</li>
+        {% empty %}
+            <li>No users. Generate some random users.</li>
+        {% endfor %}
+    </ul>
+
+    <a href={% url 'index' %}><button>Home</button></a>
+{% endblock bodyblock %}

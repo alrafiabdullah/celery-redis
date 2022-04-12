@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block bodyblock %}
+    <div class="container">
+        <h1>Name List</h1>
+        <ul>
+            {% if hit %}
+                <h3>Cache Hit - <span id="ttl">{{ttl}}</span> second(s)</h3>
+            {% else %}
+                <h3>Cache Miss</h3>
+            {% endif %}
+            {% for user in all_data %}
+                <li>Full Name: {{ user.name }}<br>Age: {{ user.age }}<br>Created {{ user.created_at | timesince }} ago</li>
+            {% empty %}
+                <li>No users. Generate some random users.</li>
+                <form action={% url 'cache_test' %} method="post">
+                    {% csrf_token %}
+                    <input class="btn btn-danger" type="submit" value="Generate Users">
+                </form>
+            {% endfor %}
+        </ul>
+    
+        <a href={% url 'index' %}><button>Home</button></a>
+    </div>
+{% endblock bodyblock %}
